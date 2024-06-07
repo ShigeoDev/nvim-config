@@ -9,7 +9,8 @@ return {
         "williamboman/mason-lspconfig.nvim",
         config = function()
             require("mason-lspconfig").setup({
-                ensure_installed = { "lua_ls", "pyright", "jdtls", }
+                ensure_installed = { "lua_ls", "pyright", "jdtls", "html", "cssls", },
+                auto_install = true
             })
         end
     },
@@ -18,15 +19,16 @@ return {
         config = function()
             local capabilities = require('cmp_nvim_lsp').default_capabilities()
             local lspconfig = require("lspconfig")
-            lspconfig.lua_ls.setup({
-                capabilites = capabilities
-            })
-            lspconfig.pyright.setup({
-                capabilites = capabilities
-            })
-            lspconfig.jdtls.setup({
-                capabilites = capabilities
-            })
+
+            -- Enable some language servers with the additional completion capabilities offered by nvim-cmp
+            local servers = { 'pyright', 'lua_ls', 'jdtls', 'html', 'cssls'}
+            for _, lsp in ipairs(servers) do
+                lspconfig[lsp].setup {
+                    -- on_attach = my_custom_on_attach,
+                    capabilities = capabilities,
+                }
+            end
+
             vim.keymap.set('n', 'K', vim.lsp.buf.hover, {})
             vim.keymap.set('n', 'gd', vim.lsp.buf.definition, {})
             vim.keymap.set({ 'n', 'v' }, '<leader>ca', vim.lsp.buf.code_action, {})
