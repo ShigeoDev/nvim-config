@@ -8,6 +8,12 @@ vim.cmd("set softtabstop=4")
 vim.api.nvim_command('filetype plugin on')
 vim.api.nvim_command('filetype on')
 
+vim.filetype.add({
+  extension = {
+    mdx = "markdown",
+  }
+})
+
 -- Directory
 -- vim.cmd("set autochdir")
 

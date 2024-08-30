@@ -9,7 +9,7 @@ return {
         "williamboman/mason-lspconfig.nvim",
         config = function()
             require("mason-lspconfig").setup({
-                ensure_installed = { "lua_ls", "pyright", "jdtls", "html", "cssls", },
+                ensure_installed = { "lua_ls", "pyright", "jdtls", "html", "cssls", "tsserver", "emmet_language_server",},
                 auto_install = true
             })
         end
@@ -21,7 +21,7 @@ return {
             local lspconfig = require("lspconfig")
 
             -- Enable some language servers with the additional completion capabilities offered by nvim-cmp
-            local servers = { 'pyright', 'lua_ls', 'jdtls', 'html', 'cssls'}
+            local servers = { 'pyright', 'lua_ls', 'jdtls', 'html', 'cssls', 'tsserver', 'emmet_language_server', 'tailwindcss', 'mdx_analyzer' }
             for _, lsp in ipairs(servers) do
                 lspconfig[lsp].setup {
                     -- on_attach = my_custom_on_attach,
